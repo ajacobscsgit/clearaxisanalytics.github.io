@@ -1,1 +1,35 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f7f9fc;
+  color: #1f2933;
+}
+
+header {
+  text-align: center;
+  padding: 60px 20px;
+  background: #0f172a;
+  color: white;
+}
+
+.hero, .services, .contact {
+  max-width: 900px;
+  margin: 60px auto;
+  padding: 0 20px;
+}
+
+h2, h3 {
+  color: #0f172a;
+}
+
+ul {
+  line-height: 1.8;
+}
+
+footer {
+  text-align: center;
+  padding: 30px;
+  background: #e5e7eb;
+}
 
