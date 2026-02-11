@@ -794,5 +794,178 @@ body {
   gap: 40px;
   align-items: stretch;
 }
+/* Case Study styling KPI grid */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 24px;
+  margin: 32px 0;
+}
 
+.kpi-card {
+  background: #f8fafc;
+  padding: 24px;
+  border-radius: 12px;
+  text-align: center;
+  border: 1px solid #e2e8f0;
+}
+
+.kpi-card h4 {
+  font-size: 28px;
+  margin-bottom: 8px;
+  color: #0f172a;
+}
+
+.kpi-card p {
+  font-size: 14px;
+  color: #64748b;
+}
+/* Dashboard Preview */
+.dashboard-preview {
+  margin: 32px 0;
+}
+
+.dashboard-preview img {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+.section h3 {
+  margin-top: 48px;
+}
+
+.section ul,
+.section ol {
+  margin: 16px 0 24px 20px;
+}
+.analysis-compare {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 32px;
+  margin: 32px 0;
+}
+
+.analysis-block {
+  background: #f8fafc;
+  padding: 24px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.analysis-block h4 {
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+/* =========================
+   Case Study Styling
+   ========================= */
+
+/* Section spacing refinement */
+.section h2,
+.section h3 {
+  margin-top: 48px;
+}
+
+.section p {
+  line-height: 1.6;
+}
+
+
+/* -------------------------
+   Before / After Grid
+-------------------------- */
+
+.analysis-compare {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 32px;
+  margin: 32px 0;
+}
+
+.analysis-block {
+  background: #f8fafc;
+  padding: 24px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.analysis-block h4 {
+  margin-bottom: 16px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.analysis-block ul {
+  margin-left: 20px;
+}
+
+
+/* -------------------------
+   KPI Snapshot Grid
+-------------------------- */
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 24px;
+  margin: 32px 0;
+}
+
+.kpi-card {
+  background: #ffffff;
+  padding: 28px 24px;
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.kpi-card:hover {
+  transform: translateY(-4px);
+}
+
+.kpi-card h4 {
+  font-size: 28px;
+  margin-bottom: 8px;
+  color: #0f172a;
+}
+
+.kpi-card p {
+  font-size: 14px;
+  color: #64748b;
+}
+
+
+/* -------------------------
+   Dashboard Preview
+-------------------------- */
+
+.dashboard-preview {
+  margin: 32px 0;
+}
+
+.dashboard-preview img {
+  width: 100%;
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+}
+
+
+/* -------------------------
+   Case Study CTA
+-------------------------- */
+
+.case-cta {
+  margin-top: 56px;
+  padding: 40px 32px;
+  background: #f1f5f9;
+  border-radius: 14px;
+  text-align: center;
+  border: 1px solid #e2e8f0;
+}
+
+.case-cta p {
+  margin-bottom: 20px;
+  font-weight: 500;
+}
 
