@@ -55,7 +55,7 @@
         </label>
 
         <label class="form-field">
-          <textarea name="message" rows="6" placeholder="Briefly describe your needs" maxlength="500"></textarea>
+          <textarea name="message" id="messageBox" rows="6" placeholder="Briefly describe your needs" maxlength="500"></textarea>
           <span class="char-counter">0 / 500</span>
         </label>
 
@@ -164,6 +164,15 @@ contactForm.addEventListener("submit", async function(e) {
     alert("There was a problem submitting the form.");
   }
 });
+</script>
+<script>
+const params = new URLSearchParams(window.location.search);
+const service = params.get("service");
+
+if (service) {
+  const messageBox = document.getElementById("messageBox");
+  messageBox.value = service + " - ";
+}
 </script>
 
 </body>
