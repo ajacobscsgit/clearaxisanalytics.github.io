@@ -38,7 +38,7 @@
   <div class="container contact-grid">
     <div class="contact-form-card">
       <h2>Send a message</h2>
-      <form class="contact-form" action="https://formspree.io/f/xeelovjo" method="post" novalidate>
+      <form class="contact-form" action="https://formspree.io/f/xeelovjo" method="POST" id="contact-form" novalidate>
         <div class="form-row">
           <label class="form-field">
             <span class="sr-only">Name</span>
@@ -140,6 +140,29 @@ function clearErrors() {
 /* Character counter */
 messageInput.addEventListener("input", function() {
   counter.textContent = messageInput.value.length + " / 500";
+});
+</script>
+<script>
+const contactForm = document.getElementById("contact-form");
+
+contactForm.addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  const data = new FormData(contactForm);
+
+  const response = await fetch(contactForm.action, {
+    method: "POST",
+    body: data,
+    headers: {
+      'Accept': 'application/json'
+    }
+  });
+
+  if (response.ok) {
+    contactForm.innerHTML = "<h3>Thank you. Your message has been sent.</h3>";
+  } else {
+    alert("There was a problem submitting the form.");
+  }
 });
 </script>
 
