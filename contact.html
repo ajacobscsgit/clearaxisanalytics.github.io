@@ -55,7 +55,8 @@
         </label>
 
         <label class="form-field">
-          <textarea name="message" rows="6" placeholder="Briefly describe your needs"></textarea>
+          <textarea name="message" rows="6" placeholder="Briefly describe your needs" maxlength="500"></textarea>
+          <span class="char-counter">0 / 500</span>
         </label>
 
         <div class="form-row form-actions">
@@ -89,6 +90,58 @@
     <p>© 2026 ClearAxis Analytics</p>
   </div>
 </footer>
+<script>
+const form = document.querySelector(".contact-form");
+const nameInput = form.querySelector('input[name="name"]');
+const emailInput = form.querySelector('input[name="email"]');
+const messageInput = form.querySelector('textarea[name="message"]');
+const counter = document.querySelector(".char-counter");
+
+form.addEventListener("submit", function(e) {
+
+  clearErrors();
+  let valid = true;
+
+  if (nameInput.value.trim() === "") {
+    showError(nameInput, "Name is required.");
+    valid = false;
+  }
+
+  if (emailInput.value.trim() === "") {
+    showError(emailInput, "Email is required.");
+    valid = false;
+  }
+
+  if (messageInput.value.trim() === "") {
+    showError(messageInput, "Please describe your needs.");
+    valid = false;
+  }
+
+  if (!valid) {
+    e.preventDefault();
+  }
+});
+
+function showError(input, message) {
+  input.classList.add("input-error");
+
+  const error = document.createElement("span");
+  error.className = "field-error-text";
+  error.innerText = message;
+
+  input.parentElement.appendChild(error);
+}
+
+function clearErrors() {
+  document.querySelectorAll(".field-error-text").forEach(el => el.remove());
+  document.querySelectorAll(".input-error").forEach(el => el.classList.remove("input-error"));
+}
+
+/* Character counter */
+messageInput.addEventListener("input", function() {
+  counter.textContent = messageInput.value.length + " / 500";
+});
+</script>
 
 </body>
 </html>

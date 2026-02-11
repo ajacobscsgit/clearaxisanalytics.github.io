@@ -752,5 +752,24 @@ body {
     order: 2;
   }
 }
+/* --- Form Validation --- */
+
+.input-error {
+  border: 2px solid #dc2626 !important;
+}
+
+.field-error-text {
+  color: #dc2626;
+  font-size: 0.85rem;
+  margin-top: 6px;
+  display: block;
+}
+
+.char-counter {
+  font-size: 0.8rem;
+  margin-top: 6px;
+  text-align: right;
+  color: #64748b;
+}
 
 
