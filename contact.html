@@ -3,33 +3,35 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ClearAxis Analytics</title>
+  <title>Contact | ClearAxis Analytics</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-  <!-- Header -->
-  <header class="site-header">
-    <div class="container nav">
-      <div class="brand">
-        <img src="assets/branding/logo.png" alt="ClearAxis Analytics Logo" class="logo">
-      </div>
-        <nav>
-          <a href="index.html" class="nav-link">Home</a>
-          <a href="services.html" class="nav-link">Services</a>
-          <a href="case-studies.html"class="nav-link">Case Studies</a>
-          <a href="about.html" class="nav-link">About</a>
-          <a href="contact.html" class="btn btn-primary nav-cta active">Contact</a>
-        </nav>
+<header class="site-header">
+  <div class="container nav">
+    <div class="brand">
+      <img src="assets/branding/logo.png" alt="ClearAxis Analytics Logo" class="logo">
     </div>
-  </header>
+    <nav>
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="services.html" class="nav-link">Services</a>
+      <a href="case-studies.html" class="nav-link">Case Studies</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="contact.html" class="btn btn-primary nav-cta active">Contact</a>
+    </nav>
+  </div>
+</header>
 
 <main class="section section-intro">
   <div class="container narrow">
     <div class="contact-hero">
       <div class="contact-hero-text">
         <h1>Contact ClearAxis</h1>
-        <p class="lead">Share a few details and we’ll follow up with a clear plan to clean, analyze, or automate your data.</p>
+        <p class="lead">
+          Share a few details and we’ll follow up with a clear plan to clean,
+          analyze, or automate your data.
+        </p>
       </div>
     </div>
   </div>
@@ -37,16 +39,18 @@
 
 <section class="section">
   <div class="container contact-grid">
+
     <div class="contact-form-card">
       <h2>Send a message</h2>
-      <form class="contact-form" action="https://formspree.io/f/xeelovjo" method="POST" id="contact-form" novalidate>
+
+      <form class="contact-form" id="contact-form" novalidate>
+
         <div class="form-row">
           <label class="form-field">
-            <span class="sr-only">Name</span>
             <input type="text" name="name" placeholder="Your name" required />
           </label>
+
           <label class="form-field">
-            <span class="sr-only">Email</span>
             <input type="email" name="email" placeholder="Email address" required />
           </label>
         </div>
@@ -56,20 +60,31 @@
         </label>
 
         <label class="form-field">
-          <textarea name="message" id="messageBox" rows="6" placeholder="Briefly describe your needs" maxlength="500"></textarea>
+          <textarea name="message" id="messageBox"
+            rows="6"
+            placeholder="Briefly describe your needs"
+            maxlength="500"
+            required></textarea>
           <span class="char-counter">0 / 500</span>
         </label>
 
         <div class="form-row form-actions">
-          <button class="btn btn-primary" type="submit">Send Message</button>
+          <button class="btn btn-primary" type="submit">
+            Send Message
+          </button>
         </div>
+
       </form>
     </div>
 
     <aside class="contact-info">
+
       <div class="info-card">
         <h3>Our approach</h3>
-        <p>ClearAxis combines careful data hygiene with practical automation and clear reporting. We focus on fast, reliable wins that scale.</p>
+        <p>
+          ClearAxis combines structured KPI frameworks with practical automation
+          and decision-focused reporting systems.
+        </p>
       </div>
 
       <div class="info-card">
@@ -79,10 +94,15 @@
 
       <div class="info-card">
         <h3>Email</h3>
-        <p><a href="mailto:contact@clearaxisanalytics@outlook.com">contact@clearaxisanalytics@outlook.com</a></p>
+        <p>
+          <a href="mailto:contact@clearaxisanalytics.com">
+            contact@clearaxisanalytics.com
+          </a>
+        </p>
       </div>
 
     </aside>
+
   </div>
 </section>
 
@@ -91,45 +111,19 @@
     <p>© 2026 ClearAxis Analytics</p>
   </div>
 </footer>
+
 <script>
-const form = document.querySelector(".contact-form");
+const form = document.getElementById("contact-form");
 const nameInput = form.querySelector('input[name="name"]');
 const emailInput = form.querySelector('input[name="email"]');
-const messageInput = form.querySelector('textarea[name="message"]');
+const messageInput = document.getElementById("messageBox");
 const counter = document.querySelector(".char-counter");
-
-form.addEventListener("submit", function(e) {
-
-  clearErrors();
-  let valid = true;
-
-  if (nameInput.value.trim() === "") {
-    showError(nameInput, "Name is required.");
-    valid = false;
-  }
-
-  if (emailInput.value.trim() === "") {
-    showError(emailInput, "Email is required.");
-    valid = false;
-  }
-
-  if (messageInput.value.trim() === "") {
-    showError(messageInput, "Please describe your needs.");
-    valid = false;
-  }
-
-  if (!valid) {
-    e.preventDefault();
-  }
-});
 
 function showError(input, message) {
   input.classList.add("input-error");
-
   const error = document.createElement("span");
   error.className = "field-error-text";
   error.innerText = message;
-
   input.parentElement.appendChild(error);
 }
 
@@ -138,42 +132,56 @@ function clearErrors() {
   document.querySelectorAll(".input-error").forEach(el => el.classList.remove("input-error"));
 }
 
-/* Character counter */
 messageInput.addEventListener("input", function() {
   counter.textContent = messageInput.value.length + " / 500";
 });
-</script>
-<script>
-const contactForm = document.getElementById("contact-form");
 
-contactForm.addEventListener("submit", async function(e) {
+form.addEventListener("submit", async function(e) {
   e.preventDefault();
+  clearErrors();
 
-  const data = new FormData(contactForm);
+  let valid = true;
 
-  const response = await fetch(contactForm.action, {
-    method: "POST",
-    body: data,
-    headers: {
-      'Accept': 'application/json'
+  if (!nameInput.value.trim()) {
+    showError(nameInput, "Name is required.");
+    valid = false;
+  }
+
+  if (!emailInput.value.trim()) {
+    showError(emailInput, "Email is required.");
+    valid = false;
+  }
+
+  if (!messageInput.value.trim()) {
+    showError(messageInput, "Please describe your needs.");
+    valid = false;
+  }
+
+  if (!valid) return;
+
+  const formData = {
+    name: nameInput.value,
+    email: emailInput.value,
+    company: document.querySelector('input[name="company"]').value,
+    message: messageInput.value
+  };
+
+  try {
+    const response = await fetch("https://script.google.com/macros/s/AKfycbzl4F3M7wn0o_lQM4f7PMhHGJU6lV8Umg1YXpFf2wSAERfX_jyIZFciz_r0JqJeUz6ibg/exec", {
+      method: "POST",
+      body: JSON.stringify(formData)
+    });
+
+    if (response.ok) {
+      form.innerHTML = "<h3>Thank you. Your message has been sent.</h3>";
+    } else {
+      alert("There was a problem submitting the form.");
     }
-  });
 
-  if (response.ok) {
-    contactForm.innerHTML = "<h3>Thank you. Your message has been sent.</h3>";
-  } else {
-    alert("There was a problem submitting the form.");
+  } catch (error) {
+    alert("Network error. Please try again.");
   }
 });
-</script>
-<script>
-const params = new URLSearchParams(window.location.search);
-const service = params.get("service");
-
-if (service) {
-  const messageBox = document.getElementById("messageBox");
-  messageBox.value = service + " - ";
-}
 </script>
 
 </body>
