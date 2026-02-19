@@ -923,6 +923,7 @@ textarea {
 }
 
 #messageBox {
+  /* Fixed height sized for ~500 chars, non-resizable; scrolls internally */
   height: 220px;
   max-height: 220px;
   overflow: auto;
@@ -1090,13 +1091,11 @@ body {
 /* Lock page scrolling for contact page while keeping content area usable */
 body.no-scroll {
   height: 100vh;
-  display: flex;
-  flex-direction: column;
   overflow: hidden;
 }
-/* Allow the main content (sections) to scroll internally if needed */
+
+/* Only the message textarea should scroll on the contact page; main/section remain fixed */
 body.no-scroll main,
 body.no-scroll section {
-  flex: 1 1 auto;
-  overflow: auto;
+  overflow: visible;
 }
