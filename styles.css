@@ -65,7 +65,7 @@ body {
 }
 
 .logo {
-  height: 64px;
+  height: 70px;
   width: auto;
 }
 
@@ -1082,4 +1082,19 @@ body {
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* Lock page scrolling for contact page while keeping content area usable */
+body.no-scroll {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Allow the main content (sections) to scroll internally if needed */
+body.no-scroll main,
+body.no-scroll section {
+  flex: 1 1 auto;
+  overflow: auto;
 }
