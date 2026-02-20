@@ -37,11 +37,29 @@
   </div>
 </main>
 
-<section class="section">
-  <div class="container contact-grid">
+<section class="contact-section">
+  <div class="contact-grid">
 
+    <!-- LEFT COLUMN -->
     <div class="contact-form-card">
       <h2>Send a message</h2>
+
+      <!-- Selected Services Display -->
+      <div id="selected-services" class="selected-services" style="display: none;">
+        <h3 style="margin-bottom: 10px;">Requesting services for:</h3>
+        <div id="services-list" style="margin-bottom: 15px;"></div>
+        <button type="button" id="add-service-btn" class="btn btn-secondary" style="margin-bottom: 20px;">+ Add Another Service</button>
+      </div>
+
+      <!-- Service Selection Modal -->
+      <div id="service-modal" class="service-modal" style="display: none;">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+          <h3>Select a Service</h3>
+          <div id="service-options"></div>
+          <button type="button" class="btn btn-secondary" onclick="document.getElementById('service-modal').style.display = 'none'">Close</button>
+        </div>
+      </div>
 
       <form class="contact-form" id="contact-form" novalidate>
 
@@ -77,31 +95,25 @@
       </form>
     </div>
 
-    <aside class="contact-info">
+    <!-- RIGHT COLUMN -->
+    <div class="contact-info">
 
       <div class="info-card">
-        <h3>Our approach</h3>
-        <p>
-          ClearAxis combines structured KPI frameworks with practical automation
-          and decision-focused reporting systems.
-        </p>
+        <h4>Our approach</h4>
+        <p>ClearAxis combines structured KPI frameworks with practical automation and decision-focused reporting systems.</p>
       </div>
 
       <div class="info-card">
-        <h3>Hours</h3>
+        <h4>Hours</h4>
         <p>Mon–Fri, 8:00–19:00 (EST)</p>
       </div>
 
       <div class="info-card">
-        <h3>Email</h3>
-        <p>
-          <a href="mailto:contact@clearaxisadvisory.com">
-            contact@clearaxisadvisory.com
-          </a>
-        </p>
+        <h4>Email</h4>
+        <p><a href="mailto:contact@clearaxisadvisory.com">contact@clearaxisadvisory.com</a></p>
       </div>
 
-    </aside>
+    </div>
 
   </div>
 </section>
@@ -113,11 +125,90 @@
 </footer>
 
 <script>
+const services = [
+  { name: "KPI Architecture & Performance Diagnostic", value: "KPI Audit & Performance Diagnostic" },
+  { name: "Executive Dashboard & Reporting Systems", value: "Executive Dashboard Design" },
+  { name: "Automation & Data Workflow Optimization", value: "Performance Automation & Monitoring" }
+];
+
 const form = document.getElementById("contact-form");
 const nameInput = form.querySelector('input[name="name"]');
 const emailInput = form.querySelector('input[name="email"]');
 const messageInput = document.getElementById("messageBox");
 const counter = document.querySelector(".char-counter");
+const selectedServicesDiv = document.getElementById("selected-services");
+const servicesList = document.getElementById("services-list");
+const addServiceBtn = document.getElementById("add-service-btn");
+const serviceModal = document.getElementById("service-modal");
+const serviceOptions = document.getElementById("service-options");
+
+let selectedServices = [];
+
+function getQueryParam(param) {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(param);
+}
+
+function formatMessageWithServices() {
+  let messageText = "";
+  if (selectedServices.length > 0) {
+    selectedServices.forEach(service => {
+      messageText += `**${service}**\n`;
+    });
+    messageText += "\n";
+  }
+  return messageText;
+}
+
+function updateServicesList() {
+  servicesList.innerHTML = "";
+  selectedServices.forEach((service, index) => {
+    const tag = document.createElement("div");
+    tag.style.cssText = "display: inline-block; background: #f0f0f0; padding: 8px 12px; margin-right: 8px; margin-bottom: 8px; border-radius: 4px; font-weight: bold;";
+    tag.innerHTML = `${service} <button type="button" onclick="removeService(${index})" style="background: none; border: none; margin-left: 8px; cursor: pointer; font-weight: bold;">×</button>`;
+    servicesList.appendChild(tag);
+  });
+  
+  if (selectedServices.length > 0) {
+    selectedServicesDiv.style.display = "block";
+    updateMessageWithServices();
+  } else {
+    selectedServicesDiv.style.display = "none";
+  }
+}
+
+function addService(service) {
+  if (!selectedServices.includes(service)) {
+    selectedServices.push(service);
+  }
+  updateServicesList();
+  serviceModal.style.display = "none";
+}
+
+window.removeService = function(index) {
+  selectedServices.splice(index, 1);
+  updateServicesList();
+};
+
+function populateServiceOptions() {
+  serviceOptions.innerHTML = "";
+  services.forEach(service => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "btn btn-primary";
+    btn.style.cssText = "display: block; width: 100%; text-align: left; margin-bottom: 10px; padding: 12px;";
+    btn.textContent = service.name;
+    btn.onclick = () => addService(service.name);
+    serviceOptions.appendChild(btn);
+  });
+}
+
+function updateMessageWithServices() {
+  const currentMessage = messageInput.value.split("\n").filter(line => !line.startsWith("**") && line.trim() !== "").join("\n");
+  const servicePrefix = formatMessageWithServices();
+  messageInput.value = (servicePrefix + currentMessage).trim();
+  counter.textContent = messageInput.value.length + " / 500";
+}
 
 function showError(input, message) {
   input.classList.add("input-error");
@@ -132,8 +223,27 @@ function clearErrors() {
   document.querySelectorAll(".input-error").forEach(el => el.classList.remove("input-error"));
 }
 
+addServiceBtn.addEventListener("click", () => {
+  populateServiceOptions();
+  serviceModal.style.display = "flex";
+});
+
+document.querySelector(".modal-overlay").addEventListener("click", () => {
+  serviceModal.style.display = "none";
+});
+
 messageInput.addEventListener("input", function() {
   counter.textContent = messageInput.value.length + " / 500";
+});
+
+// Check for service query parameter on page load
+window.addEventListener("load", () => {
+  const serviceParam = getQueryParam("service");
+  if (serviceParam) {
+    const displayName = services.find(s => s.value === serviceParam)?.name || serviceParam;
+    addService(displayName);
+  }
+  populateServiceOptions();
 });
 
 form.addEventListener("submit", function(e) {
@@ -203,11 +313,6 @@ form.addEventListener("submit", function(e) {
       message: messageInput.value
     }).toString()
   });
-  <footer class="site-footer">
-  <div class="container">
-    <p>© 2026 ClearAxis Advisory. All rights reserved.</p>
-  </div>
-  </footer>
 });
 </script>
 </body>
